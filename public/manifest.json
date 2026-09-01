@@ -1,0 +1,13 @@
+{
+  "name": "Settle — Expense Tracking & Settlement",
+  "short_name": "Settle",
+  "description": "Track shared expenses and settle up with your group.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f8fa",
+  "theme_color": "#15171a",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
