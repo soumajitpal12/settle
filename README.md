@@ -8,6 +8,7 @@ This project was fixed and extended from an earlier version. See
 **"What was fixed"** and **"Features"** below for the full list of changes.
 
 ## Stack
+
 - Next.js (App Router) + React + TypeScript
 - Supabase Auth + PostgreSQL + Row Level Security
 - Plain CSS — no UI framework, fully responsive, installable as a mobile app (PWA)
@@ -22,6 +23,7 @@ npm install
 cp .env.example .env.local
 npm run dev
 ```
+
 Open http://localhost:3000. You'll see the landing page until you connect Supabase (next step) and sign up.
 
 ## 2. Set up Supabase (free tier is enough)
@@ -35,21 +37,30 @@ Open http://localhost:3000. You'll see the landing page until you connect Supaba
 4. Go to **Project Settings → API** and copy the **Project URL** and the
    **anon / publishable key**.
 5. Go to **Authentication → Providers** and make sure **Email** is enabled.
-   For a quick personal/college-project setup you can turn off "Confirm email"
-   under Authentication → Settings so sign-up logs you in immediately.
+   By default Supabase requires clicking a confirmation link before a new
+   sign-up can log in — the app now tells the person to check their email
+   when that happens, instead of silently failing. For a personal/college
+   project where that friction isn't worth it, turn it off: **Authentication
+   → Sign In / Providers → Email → uncheck "Confirm email"** (older
+   dashboards: **Authentication → Settings**). With it off, sign-up logs
+   you in immediately, like a normal login form.
 
 Paste the two values into `.env.local`:
+
 ```env
 NEXT_PUBLIC_SUPABASE_URL=https://YOUR_PROJECT.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
 ```
+
 Never put a Supabase **service-role** key in frontend code — only the anon key belongs here.
 
 ## 3. Run locally
+
 ```bash
 npm install
 npm run dev
 ```
+
 Visit http://localhost:3000, sign up, then go to **Groups** to create your first group.
 
 ## 4. Deploy to Vercel (free tier)
@@ -69,6 +80,7 @@ That's it — the app is live. Vercel and Supabase free tiers are enough for
 personal or small-group use; check each provider's current limits if usage grows.
 
 ### Installing it like an app on a phone
+
 The app ships with a web manifest and icons, so once deployed you can open it
 in a mobile browser and use **"Add to Home Screen"** (Safari) or **"Install
 app"** (Chrome) to get an app-like icon and full-screen experience — no app
@@ -115,6 +127,7 @@ found during the review are listed here for transparency:
 ## 6. Features
 
 **Core**
+
 - Email/password auth (Supabase Auth)
 - Create groups, add members (with or without their own account)
 - Add **shared** expenses (equal or custom split) or **personal** expenses (paid for one person)
@@ -125,6 +138,7 @@ found during the review are listed here for transparency:
 - Every write (create/edit expense, settle up) is a single atomic database transaction via Postgres RPCs, so a half-saved expense can never happen
 
 **New in this version**
+
 - **Group switcher everywhere** — Dashboard, Expenses, Add Expense, and Settle Up all agree on which group you're working in, and remember your choice
 - **Invite codes, with account linking** — every group gets a short shareable code (e.g. `A1B2C3`). When someone joins with it, they're shown the group name and any members who were added by name only (no account yet) and asked "is one of these you?" — picking their name links their account to their existing expense history instead of creating a disconnected duplicate person. If none fit, they're added as a new member.
 - **Leave a group** — any non-creator member can leave from Groups → Manage, as long as they have no expense or settlement history in that group (the creator can't leave, since someone has to own the group)
@@ -159,6 +173,7 @@ The engine in `lib/balance.ts` converts money to integer minor units (paise) bef
 ```bash
 npm run test
 ```
+
 Runs `tests/balance-engine.test.mjs`, covering personal expenses, equal
 shared expenses, partial settlements, rounding reconciliation, and circular
 netting. It's a dependency-free reimplementation of the same math as

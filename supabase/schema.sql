@@ -240,8 +240,8 @@ begin
   select id,name into gid,gname from public.groups where join_code = upper(trim(p_code));
   if gid is null then raise exception 'Invalid invite code.'; end if;
   return query select gid, gname,
-    coalesce((select jsonb_agg(jsonb_build_object('id',id,'display_name',display_name) order by display_name)
-              from public.group_members where group_id=gid and user_id is null),'[]'::jsonb);
+    coalesce((select jsonb_agg(jsonb_build_object('id',gm.id,'display_name',gm.display_name) order by gm.display_name)
+              from public.group_members gm where gm.group_id=gid and gm.user_id is null),'[]'::jsonb);
 end;$$;
 grant execute on function public.group_preview_by_code(text) to authenticated;
 
