@@ -29,7 +29,7 @@ export default function Auth(){
 
   return <main className="auth"><form className="card form" onSubmit={submit}>
     <h1>{mode==='signin'?'Welcome back':'Create your account'}</h1>
-    {checkEmail&&<p className="notice">We sent a confirmation link to <b>{checkEmail}</b>. Open it, then sign in below.<br/><small className="muted">Setting this up yourself? You can turn email confirmation off in Supabase — see the README.</small></p>}
+    {checkEmail&&<p className="notice">We sent a confirmation link to <b>{checkEmail}</b>. Open it, then sign in below.</p>}
     {mode==='signup'&&<div className="field"><label className="label">Your name</label><input className="input" value={name} onChange={e=>setName(e.target.value)} required/></div>}
     <div className="field"><label className="label">Email</label><input className="input" type="email" value={email} onChange={e=>setEmail(e.target.value)} required/></div>
     <div className="field"><label className="label">Password</label><input className="input" type="password" value={password} onChange={e=>setPassword(e.target.value)} minLength={6} required/></div>
