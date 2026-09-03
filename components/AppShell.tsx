@@ -46,6 +46,14 @@ export default function AppShell({children}:{children:React.ReactNode}){
 
       {children}
 
+      <footer className="site-footer">
+        <span>Developed by Soumajit Pal</span>
+        <span className="footer-links">
+          <a href="https://github.com/soumajitpal12" target="_blank" rel="noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/soumajitpal12/" target="_blank" rel="noreferrer">LinkedIn</a>
+        </span>
+      </footer>
+
       {signedIn&&<nav className="bottom-nav" aria-label="Primary">
         <Link href="/" className={isActive('/')&&pathname==='/'?'active':''}><Home size={20}/><span>Home</span></Link>
         <Link href="/expenses" className={isActive('/expenses')?'active':''}><Receipt size={20}/><span>Expenses</span></Link>
