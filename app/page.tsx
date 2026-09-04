@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import {formatLocalDateTime} from '../lib/time';
 import {useEffect,useMemo,useState} from 'react';
 import {supabase} from '../lib/supabase';
 import {balances,simplifySettlements} from '../lib/balance';
@@ -91,7 +92,7 @@ export default function Home(){
         {loading?<p className="muted">Loading…</p>:expenses.length===0?<div className="empty">No expenses yet. Add your first one.</div>:
           <div className="list">{expenses.slice(0,8).map(e=>
             <div className="expense" key={e.id}>
-              <div><b>{e.description}</b><div className="muted">₹{Number(e.total_amount).toLocaleString('en-IN')} · {members.find(m=>m.id===e.payer_id)?.display_name||'Unknown'} paid · {new Date(e.date).toLocaleDateString('en-IN')}</div></div>
+              <div><b>{e.description}</b><div className="muted">₹{Number(e.total_amount).toLocaleString('en-IN')} · {members.find(m=>m.id===e.payer_id)?.display_name||'Unknown'} paid · {formatLocalDateTime(e.date)}</div></div>
               <span className="muted">{e.category}</span>
             </div>)}
           </div>}

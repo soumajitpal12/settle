@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import {formatLocalDateTime} from '../../lib/time';
 import {useEffect,useMemo,useState} from 'react';
 import {useRouter} from 'next/navigation';
 import {supabase} from '../../lib/supabase';
@@ -85,7 +86,7 @@ export default function Expenses(){
         {loading?<p className="muted">Loading…</p>:groupId===''?<div className="empty">Create or join a group first. <Link href="/groups">Go to groups</Link></div>:filtered.length===0?<div className="empty">No expenses match these filters.</div>:
           <div className="list">{filtered.map(e=>
             <div className="expense" key={e.id}>
-              <div><Link href={`/expenses/${e.id}`}><b>{e.description}</b></Link><div className="muted">₹{Number(e.total_amount).toLocaleString('en-IN',{minimumFractionDigits:2})} · {name(e.payer_id)} paid · {new Date(e.date).toLocaleDateString('en-IN')} · {e.payment_method}</div></div>
+              <div><Link href={`/expenses/${e.id}`}><b>{e.description}</b></Link><div className="muted">₹{Number(e.total_amount).toLocaleString('en-IN',{minimumFractionDigits:2})} · {name(e.payer_id)} paid · {formatLocalDateTime(e.date)} · {e.payment_method}</div></div>
               <div className="actions"><Link className="btn" href={`/expenses/${e.id}`}>Edit</Link><button className="btn danger" onClick={()=>remove(e.id)}>Delete</button></div>
             </div>)}
           </div>}
